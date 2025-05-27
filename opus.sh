@@ -47,7 +47,7 @@ fi
 
 # No need to change this since xcode build will only compile in the
 # necessary bits from the libraries we create
-ARCHS="armv7 armv7s arm64 i386 x86_64"
+ARCHS="armv7 armv7s arm64 x86_64"
 
 DEVELOPER=`xcode-select -print-path`
 #DEVELOPER="/Applications/Xcode.app/Contents/Developer"
@@ -103,7 +103,7 @@ export ORIGINALPATH=$PATH
 for ARCH in ${ARCHS}
 do
 	echo "** Compiling ${ARCH}"
-    if [ "${ARCH}" == "i386" ] || [ "${ARCH}" == "x86_64" ]; then
+    if [ "${ARCH}" == "x86_64" ]; then
         PLATFORM="iPhoneSimulator"
         EXTRA_FLAGS="--with-pic"
         EXTRA_CFLAGS="-arch ${ARCH}"
@@ -141,7 +141,7 @@ OUTPUT_LIBS="libopus.a"
 for OUTPUT_LIB in ${OUTPUT_LIBS}; do
 	INPUT_LIBS=""
 	for ARCH in ${ARCHS}; do
-		if [ "${ARCH}" == "i386" ] || [ "${ARCH}" == "x86_64" ];
+		if [ "${ARCH}" == "x86_64" ];
 		then
 			PLATFORM="iPhoneSimulator"
 		else
@@ -163,7 +163,7 @@ for OUTPUT_LIB in ${OUTPUT_LIBS}; do
 done
 
 for ARCH in ${ARCHS}; do
-	if [ "${ARCH}" == "i386" ] || [ "${ARCH}" == "x86_64" ];
+	if [ "${ARCH}" == "x86_64" ];
 	then
 		PLATFORM="iPhoneSimulator"
 	else

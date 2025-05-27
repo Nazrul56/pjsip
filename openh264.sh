@@ -82,6 +82,6 @@ function headers() {
 }
 
 download ${TARGET_URL} ${TARGET_PATH}
-build armv7 && build armv7s && build arm64 && build i386 && build x86_64
-lipo armv7 armv7s arm64 i386 x86_64
+build armv7 && build armv7s && build arm64 && build x86_64
+lipo armv7 armv7s arm64 x86_64
 headers arm64

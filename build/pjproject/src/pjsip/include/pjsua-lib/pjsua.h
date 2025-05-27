@@ -3920,14 +3920,6 @@ typedef struct pjsua_acc_config
     pj_str_t        id;
 
     /** 
-     * The Call ID used in REGISTER. If the value is empty, a random generated
-     * value will be used.
-     *
-     * This field is optional.
-     */
-    pj_str_t	    call_id;
-
-    /** 
      * This is the URL to be put in the request URI for the registration,
      * and will look something like "sip:serviceprovider".
      *

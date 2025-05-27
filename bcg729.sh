@@ -8,7 +8,7 @@ BASEDIR_PATH="$1"
 VERSION=${G729_VERSION:-"1.1.1"}
 TARGET_URL="https://github.com/BelledonneCommunications/bcg729/archive/refs/tags/${VERSION}.zip"
 TARGET_PATH="${BASEDIR_PATH}/src"
-ARCHS="armv7;armv7s;arm64;i386;x86_64"
+ARCHS="armv7;armv7s;arm64;x86_64"
 
 # download
 function download() {
