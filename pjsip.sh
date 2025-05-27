@@ -14,7 +14,7 @@ function download() {
 
 DEVELOPER=$(xcode-select --print-path)
 
-IPHONEOS_DEPLOYMENT_VERSION=${IOS_MIN_SDK_VERSION:-"9.0"}
+IPHONEOS_DEPLOYMENT_VERSION=${IOS_MIN_SDK_VERSION:-"15.6"}
 IPHONEOS_PLATFORM=$(xcrun --sdk iphoneos --show-sdk-platform-path)
 IPHONEOS_SDK=$(xcrun --sdk iphoneos --show-sdk-path)
 
@@ -25,7 +25,7 @@ OSX_DEPLOYMENT_VERSION=${MACOS_MIN_SDK_VERSION:-"10.12"}
 OSX_PLATFORM=$(xcrun --sdk macosx --show-sdk-platform-path)
 OSX_SDK=$(xcrun --sdk macosx --show-sdk-path)
 BASE_DIR="$1"
-PJSIP_URL="https://github.com/pjsip/pjproject/archive/${PJSIP_VERSION:-2.10}.tar.gz"
+PJSIP_URL="https://github.com/pjsip/pjproject/archive/${PJSIP_VERSION:-2.15.1}.tar.gz"
 PJSIP_DIR="$1/src"
 LIB_PATHS=("pjlib/lib" \
            "pjlib-util/lib" \
@@ -128,7 +128,7 @@ function configure() {
 		export DEVPATH="${OSX_PLATFORM}/Developer"
 	elif [ "$TYPE" == "ios" ]; then
 		# iOS
-		if [ "$ARCH" == "x86_64" ] || [ "$ARCH" == "i386" ]; then
+		if [ "$ARCH" == "x86_64" ]; then
 			export DEVPATH="${IPHONESIMULATOR_PLATFORM}/Developer"
 			export CFLAGS="${CFLAGS} -O2 -m32 -mios-simulator-version-min=${IPHONEOS_DEPLOYMENT_VERSION}"
 			export LDFLAGS="${LDFLAGS} -O2 -m32 -mios-simulator-version-min=${IPHONEOS_DEPLOYMENT_VERSION}"
@@ -282,10 +282,9 @@ download "${PJSIP_URL}" "${PJSIP_DIR}"
 
 patch_pjsip "${PJSIP_DIR}" "${__DIR__}"
 
-build "i386" "${IPHONESIMULATOR_SDK}" "ios"
 build "x86_64" "${IPHONESIMULATOR_SDK}" "ios"
 build "armv7" "${IPHONEOS_SDK}" "ios"
 build "armv7s" "${IPHONEOS_SDK}" "ios"
 build "arm64" "${IPHONEOS_SDK}" "ios"
 
-do_lipo "ios" "i386" "x86_64" "armv7" "armv7s" "arm64"
+do_lipo "ios" "x86_64" "armv7" "armv7s" "arm64"
